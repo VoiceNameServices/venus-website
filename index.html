@@ -12,6 +12,10 @@
             --max-width: 100vw;
             --venus-orange: #f46524;
             --inner-spacing: 3rem;
+            --title-font-size: 4.5rem;
+            --animation-duration: 1.5s;
+            --second-fly-in-delay: calc(var(--animation-duration) * 1.25);
+            --starting-point: 100vh;
         }
 
         * {
@@ -31,6 +35,30 @@
             color: white;
         }
 
+        .splash, main {
+            transform: translateY(var(--starting-point));
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .splash {
+            font-size: var(--title-font-size);
+            animation: fly-in var(--animation-duration) forwards, fly-out var(--animation-duration) var(--second-fly-in-delay) forwards;
+        }
+
+        main {
+            width: var(--max-width);
+            margin: 0 auto;
+            padding: 1rem;
+            animation: fly-in var(--animation-duration) var(--second-fly-in-delay) forwards;
+        }
+
         h1, h2, footer {
             font-weight: 300;
         }
@@ -39,14 +67,8 @@
             font-weight: 500;
         }
 
-        article {
-            width: var(--max-width);
-            margin: 0 auto;
-            padding: 1rem;
-        }
-
         h1 {
-            font-size: 4.5rem;
+            font-size: var(--title-font-size);
             margin: 1rem 0 0;
         }
 
@@ -92,30 +114,57 @@
                 --max-width: 920px;
             }
         }
+
+        @keyframes fly-in {
+            0% {
+                opacity: 0;
+                transform: translateY(var(--starting-point));
+            }
+            100% {
+                opacity: 100%;
+                transform: translateY(0vh);
+            }
+        }
+
+        @keyframes fly-out {
+            0% {
+                opacity: 100%;
+                transform: translateY(0vh);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(calc(var(--starting-point) * -1));
+            }
+        }
     </style>
 </head>
 <body>
-<article>
-    <h1>Venus</h1>
-    <h2>Voice for Everyone</h2>
 
-    <p>
-        Does your company have annual revenues of less than a billion dollars?
-    </p>
-    <p>
-        Congratulations! Like most companies, you can’t afford to be present on
-        voice platforms like Amazon Alexa or Google Assistant.
-    </p>
-    <p>
-        <strong>Until now.</strong>
-        Venus is bringing Voice to everyone with a revolutionary new,
-        <em>free</em> service.
-    </p>
+<h1 class="splash">Coming Soon&hellip;</h1>
 
-    <footer>
-        Watch this space…
-    </footer>
-</article>
+<main>
+    <article>
+        <h1>Venus</h1>
+        <h2>Voice for Everyone</h2>
+
+        <p>
+            Does your company have annual revenues of less than a billion dollars?
+        </p>
+        <p>
+            Congratulations! Like most companies, you can’t afford to be present on
+            voice platforms like Amazon Alexa or Google Assistant.
+        </p>
+        <p>
+            <strong>Until now.</strong>
+            Venus is bringing Voice to everyone with a revolutionary new,
+            <em>free</em> service.
+        </p>
+
+        <footer>
+            Watch this space…
+        </footer>
+    </article>
+</main>
 
 </body>
 </html>
