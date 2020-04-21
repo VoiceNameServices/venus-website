@@ -9,6 +9,7 @@
     <style>
         :root {
             --font-size: 18px;
+            --subtitle-font-size: 2.3rem;
             --max-width: 100vw;
             --venus-orange: #f46524;
             --inner-spacing: 3rem;
@@ -33,6 +34,7 @@
             padding: 0;
             background-color: var(--venus-orange);
             color: white;
+            height: 100vh;
         }
 
         .splash, main {
@@ -48,7 +50,7 @@
         }
 
         .splash {
-            font-size: var(--title-font-size);
+            font-size: var(--subtitle-font-size);
             animation: fly-in var(--animation-duration) forwards, fly-out var(--animation-duration) var(--second-fly-in-delay) forwards;
         }
 
@@ -69,11 +71,11 @@
 
         h1 {
             font-size: var(--title-font-size);
-            margin: 1rem 0 0;
+            margin: 0;
         }
 
         h2, footer {
-            font-size: 2.3rem;
+            font-size: var(--subtitle-font-size);
             margin-top: 0;
         }
 
@@ -102,16 +104,16 @@
                 justify-content: center;
                 height: 100vh;
             }
-
-            h1 {
-                margin: 0
-            }
         }
 
         @media (min-width: 920px) {
             :root {
                 --font-size: 24px;
                 --max-width: 920px;
+            }
+
+            .splash {
+                font-size: var(--title-font-size);
             }
         }
 
