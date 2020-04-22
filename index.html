@@ -153,6 +153,8 @@
     </style>
     <script type="module">
       (function() {
+        document.documentElement.scrollTo(0,0)
+
         for (const slide of document.querySelectorAll('.slide')) {
           slide.addEventListener('animationend', function () {
             slide.style.position = 'absolute'
