@@ -16,7 +16,9 @@
             --title-font-size: 4.5rem;
             --animation-duration: 1.5s;
             --second-fly-in-delay: calc(var(--animation-duration) * 1.25);
-            --starting-point: 100vh;
+            --intro-origin: 100vh;
+            --intro-destination: 0;
+            --outro-destination: calc(var(--intro-origin) * -1);
         }
 
         * {
@@ -30,34 +32,32 @@
         }
 
         body {
-            margin: 0 auto;
+            margin: 0;
             padding: 0;
-            background-color: var(--venus-orange);
             color: white;
-            height: 100vh;
+            background-color: var(--venus-orange);
+            min-height: 100vh;
+            /*overflow: hidden;*/
         }
 
-        .splash, main {
-            transform: translateY(var(--starting-point));
+        .slide {
             position: fixed;
-            top: 0;
+            top: var(--intro-origin);
             left: 0;
-            bottom: 0;
-            right: 0;
+            width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0 1rem 1rem;
         }
 
-        .splash {
+        .intro {
+            height: 100vh;
             font-size: var(--subtitle-font-size);
             animation: fly-in var(--animation-duration) forwards, fly-out var(--animation-duration) var(--second-fly-in-delay) forwards;
         }
 
         main {
-            width: var(--max-width);
-            margin: 0 auto;
-            padding: 1rem;
             animation: fly-in var(--animation-duration) var(--second-fly-in-delay) forwards;
         }
 
@@ -92,17 +92,24 @@
             line-height: 1.4;
         }
 
+        @supports (padding: env(safe-area-inset-left, 0)) {
+            .slide {
+                padding:
+                        max(1rem, env(safe-area-inset-top, 0))
+                        max(1rem, env(safe-area-inset-right, 0))
+                        max(1rem, env(safe-area-inset-bottom, 0))
+                        max(1rem, env(safe-area-inset-left, 0))
+            }
+        }
+
         @media (min-width: 700px) {
             :root {
                 --font-size: 20px;
                 --max-width: 700px;
             }
 
-            body {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
+            .slide {
+                min-height: 100vh;
             }
         }
 
@@ -112,39 +119,49 @@
                 --max-width: 920px;
             }
 
-            .splash {
+            article {
                 font-size: var(--title-font-size);
             }
         }
 
         @keyframes fly-in {
             0% {
+                display: flex;
                 opacity: 0;
-                transform: translateY(var(--starting-point));
+                top: var(--intro-origin);
             }
             100% {
                 opacity: 100%;
-                transform: translateY(0vh);
+                top: var(--intro-destination);
             }
         }
 
         @keyframes fly-out {
             0% {
                 opacity: 100%;
-                transform: translateY(0vh);
+                top: var(--intro-destination);
             }
             100% {
                 opacity: 0;
-                transform: translateY(calc(var(--starting-point) * -1));
+                top: var(--outro-destination);
             }
         }
     </style>
+    <script type="module">
+      (function() {
+        for (const slide of document.querySelectorAll('.slide')) {
+          slide.addEventListener('animationend', function () {
+            slide.style.position = 'absolute'
+          });
+        }
+      })();
+    </script>
 </head>
 <body>
 
-<h1 class="splash">Coming Soon&hellip;</h1>
+<h1 class="intro slide">Coming Soon&hellip;</h1>
 
-<main>
+<main class="slide">
     <article>
         <h1>Venus</h1>
         <h2>Voice for Everyone</h2>
